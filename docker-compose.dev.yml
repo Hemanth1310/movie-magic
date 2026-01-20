@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: cine-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: movie_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+      target: development # Change to 'production' for live deployment
+    container_name: cine-backend
+    ports:
+      - "3008:3008"
+    volumes:
+      - ./backend:/app          # Hot-reload mapping
+      - /app/node_modules       # Anonymous volume for dependencies
+    environment:
+      DATABASE_URL: "postgresql://postgres:password123@db:5432/movie_magic_db"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      # In dev, we don't use the Nginx stage, we use Vite directly
+    container_name: cine-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3008
+    command: npm run dev -- --host 0.0.0.0
+
+volumes:
+  pgdata:
