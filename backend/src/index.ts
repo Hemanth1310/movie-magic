@@ -1,13 +1,9 @@
 import express from "express";
-
+import authRouter from './authRoutes'
 const app = express()
 
-app.use('/')
+app.use('/api/auth',authRouter)
 
-app.get('/',(req,res)=>{
-
-})
-
-app.listen(3001,()=>{
-    console.log("Listening at 3001")
+app.listen(3008,()=>{
+    console.log("Listening at 3008")
 })

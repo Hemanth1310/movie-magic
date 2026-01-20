@@ -6,8 +6,8 @@ services:
     container_name: cine-db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password123
-      POSTGRES_DB: movie_db
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: movie_magic_db
     ports:
       - "5433:5432"
     volumes:
@@ -24,13 +24,14 @@ services:
       - ./backend:/app          # Hot-reload mapping
       - /app/node_modules       # Anonymous volume for dependencies
     environment:
-      DATABASE_URL: "postgresql://postgres:password123@db:5432/movie_magic_db"
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/movie_magic_db"
     depends_on:
       - db
 
   frontend:
     build:
       context: ./frontend
+      target: development
       # In dev, we don't use the Nginx stage, we use Vite directly
     container_name: cine-frontend
     ports:

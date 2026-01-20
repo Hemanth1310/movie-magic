@@ -7,8 +7,8 @@ RUN npm install
 
 # --- STAGE 2: Development ---
 FROM base AS development
-COPY . .
 RUN npx prisma generate
+COPY . .
 EXPOSE 3008
 CMD ["npm", "run", "dev"]
 

@@ -8,3 +8,5 @@ router.use(express.json());
 router.get('/userDetails',(req,res)=>{
     res.send('users')
 })
+
+export default router;
