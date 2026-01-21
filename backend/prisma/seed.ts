@@ -1,9 +1,14 @@
+import "dotenv/config";
 import { PrismaClient, Genre, BookingStatus } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 
+console.log('DATABASE_URL:', process.env.DATABASE_URL);
 const prisma = new PrismaClient();
 
 async function main() {
+
+     await new Promise(resolve => setTimeout(resolve, 3000));
+  
   console.log('Clearing database...');
   await prisma.seatLock.deleteMany();
   await prisma.booking.deleteMany();
