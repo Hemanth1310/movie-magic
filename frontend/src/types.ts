@@ -7,12 +7,14 @@ export type UserData={
     isVerified: boolean;
 }
 
-type genre =  'PENDING_PAYMENT' | 'CONFIRMED' | 'CANCELLED' | 'FAILED'
+type Genre =  'PENDING_PAYMENT' | 'CONFIRMED' | 'CANCELLED' | 'FAILED'
 
-export type Movies={
+export type Movies= {
     id: string;
     title: string;
     description: string | null;
-    genre: genre;
+    genre: Genre;
     duration: number;
+    imagePath: string;
+    featured: boolean;
 }
