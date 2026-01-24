@@ -1,9 +1,12 @@
 import express from "express";
 import authRouter from './authRoutes'
 import path from "path";
+import { prisma } from "./prisma";
+import publicRouter from "./publicRoutes";
 const app = express()
 
 app.use('/api/auth',authRouter)
+app.use('/api/publicRoutes',publicRouter)
 
 const publicPath = path.join(__dirname, '..',"public")
 
