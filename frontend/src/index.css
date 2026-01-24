@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Satoshi", "sans-serif";
+  --breakpoint-3xl: 120rem;
+  --color-brand-primary: #152238;
+  --color-brand-secondary: #FFAB2A;
+  --color-avocado-200: oklch(0.98 0.04 113.22);
+  --color-avocado-300: oklch(0.94 0.11 115.03);
+}
+
+/* @import 'tailwind-scrollbar-hide/v4'; */
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.acc-icon{
+    color:white;
+    font-size: 42px;
+}
+
+.brand-icon{
+    color:#FFAB2A;
+    font-size: 42px;
+
+}
