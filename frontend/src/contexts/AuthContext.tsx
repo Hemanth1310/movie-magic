@@ -1,17 +1,20 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import type { userData } from '../types'
+import type { UserData } from '../types'
 import api from '../utils/config/axiosConfig';
 import axios from 'axios';
 
+
 type AuthContextType = {
-  userData: userData | null,
-  handleUserData: (userData:userData)=>void,
+  userData: UserData | null,
+  handleUserData: (userData:UserData)=>void,
   isAuthLoading:boolean
 }
 
 type AuthConextProviderType = {
   children: React.ReactNode;
 };
+
+const baseUrl  = import.meta.env.VITE_API_URL
 
 const defaultUser = {
   userData:null,
@@ -24,10 +27,10 @@ export const AuthContext = createContext<AuthContextType>(defaultUser)
 
 export const AuthContextProvider  = ({children}: AuthConextProviderType) => {
 
-  const [userData,setUserData] = useState<userData | null>(null)
+  const [userData,setUserData] = useState<UserData | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(true)
 
-  const handleUserData = (data:userData | null)=>{
+  const handleUserData = (data:UserData | null)=>{
        setUserData(data)
   }
 
@@ -39,7 +42,7 @@ export const AuthContextProvider  = ({children}: AuthConextProviderType) => {
         return
       }
       try{
-        const {data} =await api.get('/api/auth/userDetails')
+        const {data} =await api.get(baseUrl+'/api/auth/userDetails')
         setUserData(data)
         setIsAuthLoading(false)
       }catch(err){
