@@ -31,7 +31,8 @@ model Movie {
   description String?
   genre       Genre      @default(OTHERS)
   duration    Int
-  imagePath   String     @default("")       
+  imagePath   String     @default("")
+  featured    Boolean    @default(false)       
   showtimes   Showtime[]
 }
 
