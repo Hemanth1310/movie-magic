@@ -9,7 +9,7 @@ function App() {
     <AuthContextProvider>
       <div className="min-h-screen bg-gray-50">
         <BrowserRouter>
-          <div className="w-screen min-h-screen flex flex-col">
+          <div className="w-screen min-h-screen flex flex-col items-center mt-20">
             <Header />
             <Routes>
               <Route path="/" element={<Home />} />
