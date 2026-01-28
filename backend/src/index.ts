@@ -1,9 +1,23 @@
 import express from "express";
 import authRouter from './authRoutes'
 import path from "path";
+import cors from 'cors'
 import { prisma } from "./prisma";
 import publicRouter from "./publicRoutes";
 const app = express()
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use('/api/auth',authRouter)
 app.use('/api/publicRoutes',publicRouter)
