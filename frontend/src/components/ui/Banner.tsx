@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import type { Movies } from "../../types";
+import getImageUrl from "../../utils/getImageUrl";
 
 type Props = {
   featuredMoviesData: Movies[];
@@ -19,7 +20,14 @@ const Banner = ({ featuredMoviesData }: Props) => {
       {featuredMoviesData.map(
         (movie, index) =>
           index === activeSlide && 
-          <div className="w-full bg-gray-600 h-50 md:h-100 lg:h-100">{movie.title}</div>,
+          <div className="w-full bg-gray-600 h-50 md:h-100 lg:h-100 flex flex-col items-center justify-center" style={{ 
+      backgroundImage: ` linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${getImageUrl(movie.imagePath)})`,
+      backgroundSize: 'cover',
+      backgroundPosition: '60% 20%'
+    }}>
+        <h1 className="text-2xl md:text-9xl text-white ">{movie.title}</h1>
+        <p className="text-2xl text-white">In cinemas now.</p>
+        </div>,
       )}
         <div className="absolute bottom-0 flex">
             {Array.from(Array(featuredMoviesData.length)).map((_,index)=>(
