@@ -1,4 +1,5 @@
 import Banner from "../components/ui/Banner";
+import getImageUrl from "../utils/getImageUrl";
 import useMoviesDataProvider from "../utils/moviesDataProvider";
 
 const Home = () => {
@@ -29,6 +30,19 @@ const Home = () => {
   return (
     <div className="container flex flex-col items-center justify-between">
       <Banner featuredMoviesData={feturedMoviesData ? feturedMoviesData : []} />
+      <div className="flex flex-wrap flex-col items-center justify-between mt-10">
+        <h2 className="text-2xl md:text-4xl">Currently screening in cinemas</h2>
+        <div className="flex flex-wrap items-center justify-between mt-10">
+        {allMoviesData?.map((movie)=>
+        <div className="flex flex-col">
+          <img className="h-100 w-70" src={getImageUrl(movie.imagePath)}/>
+          <h3>{movie.title}</h3>
+          <p>{movie.genre}</p>
+          <p>{movie.description}</p>
+        </div>)}
+        </div>
+
+      </div>
     </div>
   );
 };
