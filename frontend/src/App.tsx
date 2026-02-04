@@ -3,16 +3,18 @@ import Home from "./views/Home";
 import Header from "./components/ui/Header";
 import ProtecterRoutes from "./middleware/auth/ProtecterRoutes";
 import { AuthContextProvider } from "./contexts/AuthContext";
+import MovieDetails from "./views/MovieDetails";
 
 function App() {
   return (
     <AuthContextProvider>
       <div className="min-h-screen bg-gray-50">
         <BrowserRouter>
-          <div className="w-screen min-h-screen flex flex-col items-center mt-20">
-            <Header />
+          <Header />
+          <div className="w-screen min-h-screen flex flex-col items-center mt-20">            
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/movie-details/:movieId" element={<MovieDetails />} />
               <Route element={<ProtecterRoutes/>}>
                 
               </Route>
