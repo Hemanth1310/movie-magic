@@ -22,9 +22,10 @@ const fetchScreeningDetails =async(id:string):Promise<ScreeningDetail[]>=>{
     return data.payload.screeningDetails
 }
 
-export const useScreeingDetails=(id:string)=>{
+export const useScreeningDetails=(id:string)=>{
     return useQuery({
         queryKey:['screeningDetails',id],
-        queryFn:()=>fetchScreeningDetails(id)
+        queryFn:()=>fetchScreeningDetails(id),
+        enabled: !!id,
     })
 }
