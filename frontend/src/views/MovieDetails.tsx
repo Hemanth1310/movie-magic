@@ -1,13 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router'
-import { useScreeingDetails } from '../utils/hooks/dataQueryHooks'
+import { useScreeningDetails } from '../utils/hooks/dataQueryHooks'
 import ErrorFallback from '../components/error/ErrorFallback'
 import Spinner from '../components/ui/Spinner'
 import getImageUrl from '../utils/getImageUrl'
 
 const MovieDetails = () => {
   const {movieId} = useParams()
-  const {data:screeningDetails, isError, isLoading, refetch} = useScreeingDetails(movieId!)
+  const {data:screeningDetails, isError, isLoading, refetch} = useScreeningDetails(movieId!)
 
   
   if (!screeningDetails) {
