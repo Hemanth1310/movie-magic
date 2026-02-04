@@ -13,7 +13,7 @@ const ProtecterRoutes = () => {
   if(userData){
     return <Outlet/>
   }else{
-    return <Navigate to='/' />
+    return <Navigate to='/' replace/>
   }
 
   return (
