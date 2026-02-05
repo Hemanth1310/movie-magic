@@ -39,9 +39,9 @@ const MovieDetails = () => {
         Movie Details
       </div>
      <div className='w-full flex flex-col items-center md:items-start md:flex-row gap-10 mt-10'>
-      <div>
+      <div className=' box-border'>
           <div className='flex flex-col gap-5'>
-            <img className="h-120 w-80" src={getImageUrl(screeningDetails[0].movie.imagePath)}/>
+            <img className="h-120 min-w-80" src={getImageUrl(screeningDetails[0].movie.imagePath)}/>
             <div className=' ml-5'>
               <h1 className='text-2xl'>{screeningDetails[0].movie.title}</h1>
               <p>Genre: {screeningDetails[0].movie.genre}</p>
@@ -50,7 +50,7 @@ const MovieDetails = () => {
           </div>
       </div>
       <div className='w-full box-border'>
-        {screeningDetails.map(item=><ScreeningDetails item={item}/>)}
+        <ScreeningDetails screeningDetails={screeningDetails}/>
       </div>
      </div>
     </div>
