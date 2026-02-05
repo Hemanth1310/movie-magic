@@ -4,6 +4,7 @@ import { useScreeningDetails } from '../utils/hooks/dataQueryHooks'
 import ErrorFallback from '../components/error/ErrorFallback'
 import Spinner from '../components/ui/Spinner'
 import getImageUrl from '../utils/getImageUrl'
+import ScreeningDetails from '../components/ui/ScreeningDetails'
 
 const MovieDetails = () => {
   const {movieId} = useParams()
@@ -37,7 +38,7 @@ const MovieDetails = () => {
       <div className='w-full flex p-10 bg-gray-200 text-2xl font-bold'>
         Movie Details
       </div>
-     <div className='w-full flex gap-10 p-10 md:mt-10'>
+     <div className='w-full flex flex-col items-center md:items-start md:flex-row gap-10 mt-10'>
       <div>
           <div className='flex flex-col gap-5'>
             <img className="h-120 w-80" src={getImageUrl(screeningDetails[0].movie.imagePath)}/>
@@ -48,10 +49,8 @@ const MovieDetails = () => {
             </div>
           </div>
       </div>
-      <div>
-        {screeningDetails.map(item=><div key={item.id}>
-          {item.screen.theater.name}{item.screen.name}
-        </div>)}
+      <div className='w-full box-border'>
+        {screeningDetails.map(item=><ScreeningDetails item={item}/>)}
       </div>
      </div>
     </div>
