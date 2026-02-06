@@ -14,7 +14,7 @@ const ScreeningDetails = ({ screeningDetails }: Props) => {
       {Object.keys(formattedScreeningDetails).map((dateKey) => (
         <div key={dateKey}>
           <h2 className="text-2xl pb-10">{dateKey}</h2>
-          <div className=" grid grid-cols-3 gap-5 pb-10">
+          <div className=" grid grid-cols-1 md:grid-cols-3 gap-5 pb-10">
             {formattedScreeningDetails[dateKey].map((item) => (
               <div
                 className="flex flex-col gap-1 p-5 border-2 border-gray-200"
@@ -23,13 +23,15 @@ const ScreeningDetails = ({ screeningDetails }: Props) => {
                 <h3 className="text-2xl">{item.screen.theater.name}</h3>
                 <p>@{item.screen.theater.location}</p>
                 <p className="font-bold">{item.screen.name}</p>
-                <span className="border-2 border-gray-200">
-                  {new Date(item.startTime)
+                <div className="p-5 border-2 border-gray-300 hover:bg-gray-300">
+                  <span>{new Date(item.startTime)
                     .getHours()
                     .toString()
                     .padStart(2, "0")}
                   :{new Date(item.startTime).getMinutes()}
-                </span>
+                  </span>-
+                  <span>{item.screen.seats.length}</span>
+                </div>
               </div>
             ))}
           </div>
