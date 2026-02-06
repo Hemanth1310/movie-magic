@@ -33,7 +33,8 @@ router.get('/screenings/:movieId',async(req,res)=>{
                 movie:true,
                 screen:{
                     include:{
-                        theater:true
+                        theater:true,
+                        seats:true,
                     }
                 }
             }
