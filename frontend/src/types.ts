@@ -35,6 +35,13 @@ export type ScreeningDetail= {
             id: string;
             location: string;
         };
+        seats: {
+            number: number;
+            id: string;
+            screenId: string;
+            row: string;
+            type: string;
+        }[];
     } & {
         name: string;
         id: string;
