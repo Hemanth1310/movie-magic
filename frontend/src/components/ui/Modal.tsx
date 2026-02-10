@@ -15,7 +15,7 @@ const Modal = ({ isOpen, onClose, children, title }: Props) => {
   const modalRoot = document.getElementById("modal-root");
 
   const modalContent = (
-    <div className="fixed inset-0 bg-gray-800/50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gray-800/50 flex items-center justify-center z-50" onClick={onClose}>
       <div
         className="bg-zinc-100 p-6 rounded-lg shadow-2xl max-w-lg w-full"
         onClick={(e) => e.stopPropagation()}
