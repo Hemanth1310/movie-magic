@@ -11,7 +11,7 @@ function App() {
       <div className="min-h-screen bg-gray-50">
         <BrowserRouter>
           <Header />
-          <div className="w-screen min-h-screen flex flex-col items-center mt-20">            
+          <div className="w-screen min-h-screen flex flex-col items-center pt-20">            
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/movie-details/:movieId" element={<MovieDetails />} />
