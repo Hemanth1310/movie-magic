@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState} from 'react'
 import { loginDetailSchema } from '../../utils/TypeChecker'
+import api from '../../utils/config/axiosConfig'
+import axios, { Axios } from 'axios'
 
 type Props = {
     handleToggle:(moveTo:string)=>void
 }
 
+const baseURL = import.meta.env.VITE_API_URL
 
 const Login = ({handleToggle}: Props) => {
     const inputRef = useRef<HTMLInputElement|null>(null)
@@ -14,10 +17,13 @@ const Login = ({handleToggle}: Props) => {
         inputRef.current?.focus()
     },[])
 
-    const handleLogin = (e: React.FormEvent<HTMLFormElement>)=>{
+    const handleLogin = async(e: React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault()
+
         setIsProgress(true)
         const formData = new FormData(e.target as HTMLFormElement);
         const payload = Object.fromEntries(formData);
+        console.log(payload)
 
         const result = loginDetailSchema.safeParse(payload);
         if (!result.success) {
@@ -26,7 +32,18 @@ const Login = ({handleToggle}: Props) => {
             return;
         }
 
+        try{
+            const {data} =await api.post(`${baseURL}/api/auth/login`,payload)
+            console.log(data)
+        }catch(err){
+            if(axios.isAxiosError(err)){
+                 const errorMessage = err.response?.data?.message || "Login failed";
+                console.error(errorMessage);
+            }
+            console.log(err)
         }
+
+    }
 
   return (
     <div>
