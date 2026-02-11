@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState} from 'react'
 import { loginDetailSchema } from '../../utils/TypeChecker'
 import api from '../../utils/config/axiosConfig'
-import axios, { Axios } from 'axios'
+import axios from 'axios'
+import Spinner from './Spinner'
+import ErrorBlock from '../error/ErrorBlock'
+
 
 type Props = {
     handleToggle:(moveTo:string)=>void
@@ -19,8 +22,12 @@ const Login = ({handleToggle}: Props) => {
 
     const handleLogin = async(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
-
         setIsProgress(true)
+        setTimeout(()=>{
+            console.log('timeout')
+        },3000)
+
+       
         const formData = new FormData(e.target as HTMLFormElement);
         const payload = Object.fromEntries(formData);
         console.log(payload)
@@ -37,24 +44,22 @@ const Login = ({handleToggle}: Props) => {
             console.log(data)
         }catch(err){
             if(axios.isAxiosError(err)){
-                 const errorMessage = err.response?.data?.message || "Login failed";
+                const errorMessage = err.response?.data?.message || "Login failed";
                 console.error(errorMessage);
             }
-            console.log(err)
         }
-
+        setIsProgress(false)
     }
 
   return (
-    <div>
+    <div className='flex flex-col gap-5'>
         <form className='flex flex-col gap-3 items-center' onSubmit={handleLogin}>
-            <input className='p-5 text-xl border border-zinc-400' name='email' ref={inputRef} type='text' placeholder='Enter username'/>
-            <input className='p-5 text-xl border border-zinc-400' name='password' type='password' placeholder='Enter password'/>
-            <button disabled={isProgress} className='p-5 text-xl bg-brand-primary text-brand-secondary' type='submit'>Login</button>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='email' ref={inputRef} type='text' placeholder='Enter username'/>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='password' type='password' placeholder='Enter password'/>
+            <button disabled={isProgress} className='p-5 w-full text-xl bg-brand-primary text-brand-secondary' type='submit'>{isProgress ? <Spinner/>: <div>Login</div>}</button>
         </form>
-        {isProgress ? <div>In progress...</div> : <div>Register</div>}
-        {formError}
-        <div>Not Registered ? <span onClick={()=>handleToggle('register')}>Register here</span></div>
+        <ErrorBlock errorMessage={formError}/>
+        <div className='w-full text-center text-lg'>Not Registered ? <span className='text-blue-700 hover:cursor-pointer' onClick={()=>handleToggle('register')}>Register here</span></div>
     </div>
   )
 }
