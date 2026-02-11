@@ -13,16 +13,16 @@ router.get('/userDetails',(req,res)=>{
     res.send('users')
 })
 
-router.get('/login',async(req,res)=>{
+router.post('/login',async(req,res)=>{
     const payload = req.body
-    // const result = loginDetailSchema.safeParse(payload)
+    const result = loginDetailSchema.safeParse(payload)
 
-    // if(!result.success){
-    //     res.status(400).json({
-    //         message:result.error.issues[0].message
-    //     })
-    //     return
-    // }
+    if(!result.success){
+        res.status(400).json({
+            message:result.error.issues[0].message
+        })
+        return
+    }
 
     try{
         const user = await prisma.user.findUnique({
