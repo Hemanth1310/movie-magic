@@ -20,7 +20,7 @@ const AuthLayout = ({isModalOpen,closeModal}:Props) => {
     
   return (
     <Modal isOpen={isModalOpen} onClose={closeModal} title={title}>
-        <SelectedComponent handleToggle={handleToggle}/>
+        <SelectedComponent handleToggle={handleToggle} closeModal={closeModal}/>
     </Modal>
   )
 }
