@@ -1,7 +1,7 @@
 const Spinner = () => {
   return (
     <div
-      className="w-16 h-16 border-4 border-brand-secondary
+      className="border-4 min-h-5 min-w-5 border-brand-secondary
                         border-t-transparent rounded-full 
                         animate-spin"
     ></div>
