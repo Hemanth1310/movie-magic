@@ -4,18 +4,21 @@ import api from '../../utils/config/axiosConfig'
 import axios from 'axios'
 import Spinner from './Spinner'
 import ErrorBlock from '../error/ErrorBlock'
+import { useAuth } from '../../contexts/AuthContext'
 
 
 type Props = {
-    handleToggle:(moveTo:string)=>void
+    handleToggle:(moveTo:string)=>void,
+    closeModal: ()=>void
 }
 
 const baseURL = import.meta.env.VITE_API_URL
 
-const Login = ({handleToggle}: Props) => {
+const Login = ({handleToggle,closeModal}: Props) => {
     const inputRef = useRef<HTMLInputElement|null>(null)
     const [formError,setFormError]  = useState('')
     const [isProgress,setIsProgress] = useState(false)
+    const {handleUserData} = useAuth()
     useEffect(()=>{
         inputRef.current?.focus()
     },[])
@@ -23,6 +26,7 @@ const Login = ({handleToggle}: Props) => {
     const handleLogin = async(e: React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         setIsProgress(true)
+        setFormError('')
         setTimeout(()=>{
             console.log('timeout')
         },3000)
@@ -41,11 +45,16 @@ const Login = ({handleToggle}: Props) => {
 
         try{
             const {data} =await api.post(`${baseURL}/api/auth/login`,payload)
-            console.log(data)
+            localStorage.setItem("mmtoken", data.token)
+            handleUserData(data.payload)
+            closeModal()
         }catch(err){
             if(axios.isAxiosError(err)){
                 const errorMessage = err.response?.data?.message || "Login failed";
+                setFormError(errorMessage)
                 console.error(errorMessage);
+            }else{
+                setFormError('Unexpected Error occured')
             }
         }
         setIsProgress(false)
@@ -56,7 +65,7 @@ const Login = ({handleToggle}: Props) => {
         <form className='flex flex-col gap-3 items-center' onSubmit={handleLogin}>
             <input className='p-5 w-full text-xl border border-zinc-400' name='email' ref={inputRef} type='text' placeholder='Enter username'/>
             <input className='p-5 w-full text-xl border border-zinc-400' name='password' type='password' placeholder='Enter password'/>
-            <button disabled={isProgress} className='p-5 w-full text-xl bg-brand-primary text-brand-secondary' type='submit'>{isProgress ? <Spinner/>: <div>Login</div>}</button>
+            <button disabled={isProgress} className='p-5 w-full text-xl bg-brand-primary text-brand-secondary' type='submit'><Spinner/></button>
         </form>
         <ErrorBlock errorMessage={formError}/>
         <div className='w-full text-center text-lg'>Not Registered ? <span className='text-blue-700 hover:cursor-pointer' onClick={()=>handleToggle('register')}>Register here</span></div>
