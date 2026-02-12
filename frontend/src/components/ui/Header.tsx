@@ -31,7 +31,7 @@ const Header = () => {
         </div>
         <div className="h-full">
           {userData? <div className="relative h-full"> 
-              <span className="material-symbols-outlined acc-icon ">
+              <span onClick={()=>setIsDropDownOpen(true)} className="material-symbols-outlined acc-icon cursor-pointer">
               account_circle
             </span>
              {isDropDownOpen &&<div className="absolute right-0 mt-4 h-48 w-56 bg-zinc-100 shadow-md shadow-zinc-500 z-50">
