@@ -10,7 +10,6 @@ type Props = {
     handleToggle:(moveTo:string)=>void,
     closeModal: ()=>void
 }
-const baseURL = import.meta.env.VITE_API_URL
 
 const Register = ({handleToggle,closeModal}: Props) => {
     const inputRef = useRef<HTMLInputElement|null>(null)
@@ -38,7 +37,7 @@ const Register = ({handleToggle,closeModal}: Props) => {
         ) as UserRegistrationData;
         
         try{
-            const {data} = await api.post(`${baseURL}/api/auth/register`, userData)
+            const {data} = await api.post('/api/auth/register', userData)
             console.log("API Response:", data);
               if (!data.success) {
                     throw new Error(data.message || 'Registration failed')
