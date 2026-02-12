@@ -65,7 +65,7 @@ const Login = ({handleToggle,closeModal}: Props) => {
         <form className='flex flex-col gap-3 items-center' onSubmit={handleLogin}>
             <input className='p-5 w-full text-xl border border-zinc-400' name='email' ref={inputRef} type='text' placeholder='Enter username'/>
             <input className='p-5 w-full text-xl border border-zinc-400' name='password' type='password' placeholder='Enter password'/>
-            <button disabled={isProgress} className='p-5 w-full text-xl bg-brand-primary text-brand-secondary' type='submit'><Spinner/></button>
+            <button disabled={isProgress} className='p-5 w-full text-xl bg-brand-primary text-brand-secondary flex items-center justify-center' type='submit'>{isProgress?<div className='w-5 h-5'><Spinner/></div>:'Login'}</button>
         </form>
         <ErrorBlock errorMessage={formError}/>
         <div className='w-full text-center text-lg'>Not Registered ? <span className='text-blue-700 hover:cursor-pointer' onClick={()=>handleToggle('register')}>Register here</span></div>
