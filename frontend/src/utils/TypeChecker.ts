@@ -13,3 +13,19 @@ export const loginDetailSchema = z.object({
     password: passwordRules,
 })
 
+
+export const userCoreSchema = z.object({
+    firstName: z.string().trim().min(2, "First name must be at least 2 characters"),
+    lastName: z.string().trim().min(2, "Last name must be at least 2 characters"),
+    email: z.string().email("Invalid email format").trim().toLowerCase(),
+});
+
+
+// 2. REGISTRATION SCHEMA (Core + Password + Match Check)
+export const registerSchema = userCoreSchema.extend({
+    password: passwordRules,
+    repassword: z.string(),
+}).refine(data => data.password === data.repassword, {
+    message: "Passwords mismatch",
+    path: ["repassword"],
+});
