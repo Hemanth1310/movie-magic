@@ -7,6 +7,13 @@ export type UserData={
     isVerified: boolean;
 }
 
+export type UserRegistrationData={
+    firstName:string,
+    lastName:string,
+    email:string,
+    password:string,
+}
+
 type Genre =  'PENDING_PAYMENT' | 'CONFIRMED' | 'CANCELLED' | 'FAILED'
 
 export type Movies= {
