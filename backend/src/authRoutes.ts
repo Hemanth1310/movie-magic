@@ -1,8 +1,9 @@
 import express from 'express'
-import { loginDetailSchema } from './utils/Typechecker';
+import { loginDetailSchema, registerSchema } from './utils/Typechecker';
 import { prisma } from './prisma';
 import bcrypt from 'bcryptjs';
 import jwt from "jsonwebtoken";
+import { Prisma } from '@prisma/client';
 
 const router = express.Router()
 
@@ -89,5 +90,48 @@ router.post('/login',async(req,res)=>{
 
 })
 
+router.post('/register',async(req,res)=>{
+    const { firstName, lastName, password, email } =
+    req.body as Prisma.UserCreateInput
+    const result = registerSchema.safeParse(req.body)
+
+    if(!result.success){
+        return res.status(400).json({message:"Invalid Data"})
+    }
+
+    const hashedPassword =await bcrypt.hash(password,10)
+    try{
+        const user = await prisma.user.create({
+            data:{
+                firstName,
+                lastName,
+                email,
+                password:hashedPassword
+            }
+        })
+
+        if(!user){
+            return res.status(405).json({
+                message:"Request not precessed try again later!"
+            })
+        }
+
+        return res.json({
+            message:"Registration successfull, Please login to continue !!!"
+        })
+    }catch(err){
+       if (err instanceof Prisma.PrismaClientKnownRequestError) {
+                if (err.code === 'P2002') {
+                console.log('There is a unique constraint violation, a new user cannot be created with this ID')
+                return res.status(409).json({ message: "A record with this email already exists." })
+                }
+        }else{
+            return res.status(500).json({message:'Unexpected Error occured'})
+        }
+
+
+    }
+
+})
 
 export default router;
