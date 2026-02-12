@@ -12,8 +12,6 @@ type Props = {
     closeModal: ()=>void
 }
 
-const baseURL = import.meta.env.VITE_API_URL
-
 const Login = ({handleToggle,closeModal}: Props) => {
     const inputRef = useRef<HTMLInputElement|null>(null)
     const [formError,setFormError]  = useState('')
@@ -44,7 +42,7 @@ const Login = ({handleToggle,closeModal}: Props) => {
         }
 
         try{
-            const {data} =await api.post(`${baseURL}/api/auth/login`,payload)
+            const {data} =await api.post('/api/auth/login',payload)
             localStorage.setItem("mmtoken", data.token)
             handleUserData(data.payload)
             closeModal()
