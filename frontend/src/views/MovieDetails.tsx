@@ -10,20 +10,19 @@ const MovieDetails = () => {
   const {movieId} = useParams()
   const {data:screeningDetails, isError, isLoading, refetch} = useScreeningDetails(movieId!)
 
-  
-  if (!screeningDetails) {
-    return (
-      <div className="w-full h-screen flex font-mono italic text-gray-500 items-center justify-center text-3xl">
-        Failed to fetch details
-      </div>
-    );
-  }
-
   if (isLoading) {
     return (
       <div className="w-full h-screen flex font-mono italic text-gray-500 items-center justify-center text-3xl">
         "Page is loading . please wait"
         <Spinner/>
+      </div>
+    );
+  }
+  
+  if (!screeningDetails) {
+    return (
+      <div className="w-full h-screen flex font-mono italic text-gray-500 items-center justify-center text-3xl">
+        Failed to fetch details
       </div>
     );
   }
