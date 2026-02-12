@@ -12,13 +12,14 @@ const MovieDetails = () => {
 
   if (isLoading) {
     return (
-      <div className="w-full h-screen flex font-mono italic text-gray-500 items-center justify-center text-3xl">
+      <div className="w-full h-screen flex flex-col font-mono italic text-gray-500 items-center justify-center text-3xl">
         "Page is loading . please wait"
         <Spinner/>
+        
       </div>
     );
   }
-  
+
   if (!screeningDetails) {
     return (
       <div className="w-full h-screen flex font-mono italic text-gray-500 items-center justify-center text-3xl">
