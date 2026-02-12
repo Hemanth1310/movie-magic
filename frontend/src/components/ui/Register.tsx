@@ -67,11 +67,11 @@ const Register = ({handleToggle,closeModal}: Props) => {
    <div className='flex flex-col gap-5 items-center w-full'>
         {!isRegisted?<div className='flex flex-col gap-5 w-full items-center'>
             <form className='flex flex-col gap-3 items-center w-full' onSubmit={handleRegister}>
-            <input className='p-5 w-full text-xl border border-zinc-400' name='email' ref={inputRef} type='text' placeholder='Enter email'/>
-            <input className='p-5 w-full text-xl border border-zinc-400' name='firstName' type='text' placeholder='Enter firstname'/>
-            <input className='p-5 w-full text-xl border border-zinc-400' name='lastName' type='text' placeholder='Enter lastname'/>
-            <input className='p-5 w-full text-xl border border-zinc-400' name='password' type='password' placeholder='Enter password'/>
-            <input className='p-5 w-full text-xl border border-zinc-400' name='repassword' type='password' placeholder='Re-Enter password'/>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='email' ref={inputRef} type='text' autoComplete='username' placeholder='Enter email'/>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='firstName' type='text' autoComplete='firstname' placeholder='Enter firstname'/>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='lastName' type='text' autoComplete='lastname' placeholder='Enter lastname'/>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='password' type='password' autoComplete='password' placeholder='Enter password'/>
+            <input className='p-5 w-full text-xl border border-zinc-400' name='repassword' type='password' autoComplete='repassword' placeholder='Re-Enter password'/>
             <button disabled={isProgress} className='p-5 w-full text-xl bg-brand-primary text-brand-secondary flex items-center justify-center' type='submit'>{isProgress?<div className='w-5 h-5'><Spinner/></div>:'Register'}</button>
         </form>
         <ErrorBlock errorMessage={formError}/>
