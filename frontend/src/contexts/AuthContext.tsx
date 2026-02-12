@@ -2,12 +2,14 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import type { UserData } from '../types'
 import api from '../utils/config/axiosConfig';
 import axios from 'axios';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 type AuthContextType = {
   userData: UserData | null,
   handleUserData: (userData:UserData)=>void,
-  isAuthLoading:boolean
+  isAuthLoading:boolean,
+  handleLogout : ()=>void
 }
 
 type AuthConextProviderType = {
@@ -19,19 +21,28 @@ const baseUrl  = import.meta.env.VITE_API_URL
 const defaultUser = {
   userData:null,
   handleUserData:()=>{},
-  isAuthLoading:false
+  isAuthLoading:false,
+  handleLogout : ()=>{}
 }
 
 export const AuthContext = createContext<AuthContextType>(defaultUser)
 
 
 export const AuthContextProvider  = ({children}: AuthConextProviderType) => {
-
+  const queryClient = useQueryClient()
   const [userData,setUserData] = useState<UserData | null>(null)
   const [isAuthLoading, setIsAuthLoading] = useState<boolean>(true)
 
   const handleUserData = (data:UserData | null)=>{
        setUserData(data)
+       setIsAuthLoading(false)
+  }
+
+  const handleLogout = ()=>{
+      setUserData(null)
+      setIsAuthLoading(false)
+      queryClient.clear();
+      localStorage.removeItem('mmtoken')
   }
 
   useEffect(()=>{
@@ -59,7 +70,7 @@ export const AuthContextProvider  = ({children}: AuthConextProviderType) => {
    userCheck();
   },[])
   return (
-   <AuthContext.Provider value={{userData,isAuthLoading,handleUserData}}>
+   <AuthContext.Provider value={{userData,isAuthLoading,handleUserData,handleLogout}}>
       {children}
    </AuthContext.Provider>
   )
