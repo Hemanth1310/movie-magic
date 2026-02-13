@@ -10,7 +10,6 @@ const screeningDetailsProvider = (screeningDetails:ScreeningDetail[])=>{
             formattedScreeningDetails[date]=[]
         }
        formattedScreeningDetails[date].push(screeningDetails[i])
-       console.log(screeningDetails[i])
     }
 
     return formattedScreeningDetails
