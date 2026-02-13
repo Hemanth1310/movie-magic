@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ErrorBlock from '../error/ErrorBlock'
 import Spinner from './Spinner'
 import { registerSchema } from '../../utils/TypeChecker'
@@ -62,6 +62,10 @@ const Register = ({handleToggle,closeModal}: Props) => {
         }
         
     }
+
+    useEffect(()=>{
+        inputRef.current?.focus()
+    },[])
 
   return (
    <div className='flex flex-col gap-5 items-center w-full'>
