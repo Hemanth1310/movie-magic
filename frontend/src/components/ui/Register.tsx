@@ -38,7 +38,6 @@ const Register = ({handleToggle,closeModal}: Props) => {
         
         try{
             const {data} = await api.post('/api/auth/register', userData)
-            console.log("API Response:", data);
               if (!data.success) {
                     throw new Error(data.message || 'Registration failed')
                     

@@ -25,14 +25,9 @@ const Login = ({handleToggle,closeModal}: Props) => {
         e.preventDefault()
         setIsProgress(true)
         setFormError('')
-        setTimeout(()=>{
-            console.log('timeout')
-        },3000)
-
        
         const formData = new FormData(e.target as HTMLFormElement);
         const payload = Object.fromEntries(formData);
-        console.log(payload)
 
         const result = loginDetailSchema.safeParse(payload);
         if (!result.success) {

@@ -18,10 +18,9 @@ export const useMovies = ()=>{
 
 const fetchScreeningDetails =async(id:string):Promise<ScreeningDetail[]>=>{
     const {data} = await api.get(baseUrl+`/api/publicRoutes/screenings/${id}`)
-    console.log(data)
     return data.payload.screeningDetails
 }
-
+//showtime-[movie, screeens, seats] details for a perticular movie
 export const useScreeningDetails=(id:string)=>{
     return useQuery({
         queryKey:['screeningDetails',id],
