@@ -1,14 +1,27 @@
 import React from "react";
 import screeningDetailsProvider from "../../utils/screeningDetailsProvider";
 import type { ScreeningDetail } from "../../types";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Props = {
   screeningDetails: ScreeningDetail[];
+  openModal:()=>void
 };
 
-const ScreeningDetails = ({ screeningDetails }: Props) => {
+const ScreeningDetails = ({ screeningDetails, openModal }: Props) => {
+  const navigate = useNavigate()
+  const {userData} = useAuth()
   const formattedScreeningDetails = screeningDetailsProvider(screeningDetails);
 
+  const handleShowtimeSelection =(id:string)=>{
+    if(!userData){
+      openModal()
+    }else{
+      navigate(`/showtime/${id}`)
+    }
+    
+  }
   return (
     <div className="w-full">
       {Object.keys(formattedScreeningDetails).map((dateKey) => (
@@ -23,7 +36,7 @@ const ScreeningDetails = ({ screeningDetails }: Props) => {
                 <h3 className="text-2xl">{item.screen.theater.name}</h3>
                 <p>@{item.screen.theater.location}</p>
                 <p className="font-bold">{item.screen.name}</p>
-                <div className="p-5 border-2 border-gray-300 hover:bg-gray-300">
+                <div className="p-5 border-2 border-gray-300 hover:bg-gray-300" onClick={()=>handleShowtimeSelection(item.id)}>
                   <span>{new Date(item.startTime)
                     .getHours()
                     .toString()

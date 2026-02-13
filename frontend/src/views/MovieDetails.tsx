@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { useScreeningDetails } from '../utils/hooks/dataQueryHooks'
 import ErrorFallback from '../components/error/ErrorFallback'
 import Spinner from '../components/ui/Spinner'
 import getImageUrl from '../utils/getImageUrl'
 import ScreeningDetails from '../components/ui/ScreeningDetails'
+import AuthLayout from '../components/ui/AuthLayout'
 
 const MovieDetails = () => {
   const {movieId} = useParams()
   const {data:screeningDetails, isError, isLoading, refetch} = useScreeningDetails(movieId!)
-
+  const [isModalOpen, setIsModalOpen] = useState(false)
+    
+  const closeModal=() =>{
+      setIsModalOpen(false)
+    }
+  const openModal =()=>{
+      setIsModalOpen(true)
+    }
   if (isLoading) {
     return (
       <div className="w-full h-screen flex flex-col font-mono italic text-gray-500 items-center justify-center text-3xl">
@@ -50,9 +58,13 @@ const MovieDetails = () => {
           </div>
       </div>
       <div className='w-full box-border'>
-        <ScreeningDetails screeningDetails={screeningDetails}/>
+        <ScreeningDetails openModal={openModal} screeningDetails={screeningDetails}/>
       </div>
      </div>
+     <AuthLayout
+      isModalOpen={isModalOpen}
+      closeModal={closeModal}
+      />
     </div>
     
   )
