@@ -6,7 +6,7 @@ import AuthLayout from "./AuthLayout"
 const Header = () => {
   const {userData,handleLogout} = useAuth()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isDropDownOpen, setIsDropDownOpen] = useState(true)
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false)
   
   const closeModal=() =>{
     setIsModalOpen(false)
